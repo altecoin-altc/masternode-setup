@@ -14,9 +14,9 @@ fi
 if [[ $(lsb_release -d) = *18.04* ]]; then
   COINZIP='https://github.com/altecoin-altc/altecoin/releases/download/v1.0/altecoin_ubuntu18_v1.0.zip'
 fi
-if [[ $(lsb_release -d) = *20.04* ]]; then
-  COINZIP='https://github.com/altecoin-altc/altecoin/releases/download/v1.0/altecoin_ubuntu20_v1.0.zip'
-fi
+#if [[ $(lsb_release -d) = *20.04* ]]; then
+#  COINZIP='https://github.com/altecoin-altc/altecoin/releases/download/v1.0/altecoin_ubuntu20_v1.0.zip'
+#fi
 if [[ $EUID -ne 0 ]]; then
    echo -e "${RED}$0 must be run as root.${NC}"
    exit 1
