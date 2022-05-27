@@ -3,20 +3,13 @@
 PORT=7429
 RPCPORT=7430
 CONF_DIR=~/.altecoin
+COINZIP='https://github.com/altecoin-altc/altecoin/releases/download/v1.2/altecoin-linux.zip'
 
 cd ~
 RED='\033[0;31m'
 GREEN='\033[0;32m'
 NC='\033[0m'
-if [[ $(lsb_release -d) = *16.04* ]]; then
-  COINZIP='https://github.com/altecoin-altc/altecoin/releases/download/v1.0/altecoin_ubuntu16_v1.0.zip'
-fi
-if [[ $(lsb_release -d) = *18.04* ]]; then
-  COINZIP='https://github.com/altecoin-altc/altecoin/releases/download/v1.0/altecoin_ubuntu18_v1.0.zip'
-fi
-#if [[ $(lsb_release -d) = *20.04* ]]; then
-#  COINZIP='https://github.com/altecoin-altc/altecoin/releases/download/v1.0/altecoin_ubuntu20_v1.0.zip'
-#fi
+
 if [[ $EUID -ne 0 ]]; then
    echo -e "${RED}$0 must be run as root.${NC}"
    exit 1
@@ -54,27 +47,13 @@ DOSETUP="y"
 
 if [ $DOSETUP = "y" ]  
 then
-  sudo apt-get update
-  sudo apt-get -y upgrade
-  sudo apt-get -y dist-upgrade
-  sudo apt-get update
-  sudo apt-get update && apt-get dist-upgrade -y && apt install nano htop -y && apt-get install build-essential libtool autotools-dev autoconf pkg-config libssl-dev -y && apt-get install libboost-all-dev git libminiupnpc-dev -y && apt-get install software-properties-common -y && apt install -y make build-essential libtool software-properties-common autoconf libssl-dev libboost-dev libboost-chrono-dev libboost-filesystem-dev libboost-program-options-dev libboost-system-dev libboost-test-dev libboost-thread-dev sudo automake git curl bsdmainutils libminiupnpc-dev libgmp3-dev pkg-config libevent-dev unzip && sudo add-apt-repository ppa:bitcoin/bitcoin -y && sudo apt-get update -y && sudo apt-get install libdb4.8-dev libdb4.8++-dev -y && sudo apt-get install make automake cmake curl g++-multilib libtool binutils-gold bsdmainutils pkg-config python3 -y && sudo apt-get install curl librsvg2-bin libtiff-tools bsdmainutils cmake imagemagick libcap-dev libz-dev libbz2-dev python-setuptools -y && apt-get install libzmq3-dev -y && apt-get install libdb5.3++-dev iotop -y && sudo add-apt-repository ppa:ubuntu-toolchain-r/test -y && sudo apt-get update -y && sudo apt-get upgrade libstdc++6 -y
-
-  cd /var
-  sudo touch swap.img
-  sudo chmod 600 swap.img
-  sudo dd if=/dev/zero of=/var/swap.img bs=1024k count=2000
-  sudo mkswap /var/swap.img
-  sudo swapon /var/swap.img
-  sudo free
-  sudo echo "/var/swap.img none swap sw 0 0" >> /etc/fstab
-  cd
-  
+  apt-get update
+  apt install zip unzip git curl wget -y
   cd /usr/local/bin/
   wget $COINZIP
   unzip *.zip
+  rm altecoin-qt altecoin-tx altecoin-linux.zip
   chmod +x altecoin*
-  rm altecoin-qt altecoin-tx *.zip
   
   mkdir -p $CONF_DIR
   cd $CONF_DIR
@@ -101,9 +80,6 @@ fi
   echo "daemon=1" >> altecoin.conf_TEMP
   echo "maxconnections=250" >> altecoin.conf_TEMP
   echo "masternode=1" >> altecoin.conf_TEMP
-  echo "dbcache=20" >> altecoin.conf_TEMP
-  echo "maxorphantx=5" >> altecoin.conf_TEMP
-  echo "maxmempool=100" >> altecoin.conf_TEMP
   echo "" >> altecoin.conf_TEMP
   echo "port=$PORT" >> altecoin.conf_TEMP
   echo "externalip=$IP:$PORT" >> altecoin.conf_TEMP
