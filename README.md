@@ -5,7 +5,7 @@
 1. Open your Windows wallet and unlock if your wallet is encrypted - MAKE SURE IT IS FULLY SYNCED WITH THE NETWORK AND STAKING IS DISABLED
 2. Go to Settings -> Debug -> Console
 3. Type: getnewaddress MN# (# is your masternode number you want to use. Example: MN1)
-4. Send 5000 ALTC to this address and wait for at least 1 confirmation
+4. Send 30,000 ALTC to this address and wait for at least 1 confirmation
 5. Go to Settings -> Debug -> Console
 6. Type: getmasternodeoutputs
 7. Type: createmasternodekey
