@@ -3,7 +3,7 @@
 PORT=7429
 RPCPORT=7430
 CONF_DIR=~/.altecoin
-COINZIP='https://github.com/altecoin-altc/altecoin/releases/download/v1.2/altecoin-linux.zip'
+COINZIP='https://github.com/altecoin-altc/altecoin/releases/download/v1.3.1/altecoin-linux.zip'
 
 cd ~
 RED='\033[0;31m'
